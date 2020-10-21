@@ -1,8 +1,13 @@
 # veggie_web
 
-```
+```bash
 docker-compose up -d --build
 # open localhost:3000
+
+docker-compose run web npm install <package>
+docker-compose down
+docker-compose build
+docker-compose up
 ```
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
