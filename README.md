@@ -1,5 +1,10 @@
 # veggie_web
 
+```
+docker-compose up -d --build
+# open localhost:3000
+```
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
