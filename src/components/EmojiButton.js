@@ -1,8 +1,8 @@
 import React from 'react';
 
-function EmojiButton() {
+function EmojiButton({ food }) {
   return (
-    <button>EmojiButton</button>
+    <button>{ food }</button>
   );
 }
 

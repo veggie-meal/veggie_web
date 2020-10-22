@@ -6,9 +6,11 @@ function Today() {
     <div>
       <header>Today</header>
       <main>
-        <EmojiButton />
-        <EmojiButton />
-        <EmojiButton />
+        <EmojiButton food="🐖" />
+        <EmojiButton food="🐄" />
+        <EmojiButton food="🐟" />
+        <EmojiButton food="🥚" />
+        <EmojiButton food="🥛" />
       </main>
     </div>
   );
