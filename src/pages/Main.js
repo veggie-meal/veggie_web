@@ -1,5 +1,5 @@
 import React from 'react';
-import Calendar from '../components/Calendar';
+import MainCalendar from '../components/MainCalendar';
 import NavBar from "../components/NavBar";
 import {Layout} from "antd";
 
@@ -8,9 +8,9 @@ const { Header, Footer, Sider, Content } = Layout;
 function Main() {
   return (
     <Layout>
-        <Content style={{padding:'10px 50px',minHeight:"100vh",backgroundColor:"white"}}>
+        <Content style={{padding:'10px 20px',minHeight:"100vh",backgroundColor:"white"}}>
             <div className="site-layout-content">
-                <Calendar/>
+                <MainCalendar/>
             </div>
         </Content>
         <NavBar/>

@@ -13,3 +13,16 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.site-layout-content {
+  background: #fff;
+  padding: 12px;
+  min-height: 280px;
+}
+
+.site-calendar-demo-card {
+  width: 80vw;
+  border: 1px solid #f0f0f0;
+  border-radius: 2px;
+  margin: auto;
+}
