@@ -20,9 +20,7 @@ function App() {
           <Route exact path="/">
             <Main />
           </Route>
-          <Route exact path="/today">
-            <Today />
-          </Route>
+          <Route path="/today/:dayId" component={Today} />
           <Route exact path="/badge">
             <Badge />
           </Route>
