@@ -9,6 +9,7 @@ import {Layout} from "antd";
 import Main from './pages/Main';
 import Today from './pages/Today';
 import Badge from './pages/Badge';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route exact path="/badge">
             <Badge />
           </Route>
+          <NotFound/>
         </Switch>
       </Router>
     </Layout>
