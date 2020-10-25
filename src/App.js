@@ -5,12 +5,13 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import {Layout} from "antd";
 import Main from './pages/Main';
 import Today from './pages/Today';
 
 function App() {
   return (
-    <div>
+    <Layout>
       <Router>
         <Switch>
           <Route exact path="/">
@@ -20,12 +21,8 @@ function App() {
             <Today />
           </Route>
         </Switch>
-        <nav>
-          <Link to="/">Main</Link>
-          <Link to="/today">Today</Link>
-        </nav>
       </Router>
-    </div>
+    </Layout>
   );
 }
 
