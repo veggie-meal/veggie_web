@@ -11,7 +11,7 @@ import Today from './pages/Today';
 
 function App() {
   return (
-    <Layout>
+    <Layout style={{minHeight:"100vh"}}>
       <Router>
         <Switch>
           <Route exact path="/">
