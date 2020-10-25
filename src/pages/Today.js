@@ -1,24 +1,39 @@
-import React from 'react';
+import React, { Fragment, useState } from 'react';
 import EmojiButton from '../components/EmojiButton';
+import NewDiet from '../components/NewDiet';
 
 function Today() {
-  function handleClick() {
-    console.log('clicked');
+  const [isNewDietVisible, setIsNewDietVisible] = useState(false);
+
+  function showNewDiet() {
+    setIsNewDietVisible(true);
   }
 
+  let modal;
+  if (isNewDietVisible) modal = <NewDiet />;
+
   return (
-    <div>
+    <Fragment>
       <header>Today</header>
-      <div>오늘 안 먹은 것을 고르세요?</div>
-      <main>
-        <EmojiButton food="🐖" />
-        <EmojiButton food="🐄" />
-        <EmojiButton food="🐟" />
-        <EmojiButton food="🥚" />
-        <EmojiButton food="🥛" />
-      </main>
-      <button onClick={handleClick}>저장하기</button>
-    </div>
+      <section>
+        <div>
+          <EmojiButton food="🥦" />
+          <EmojiButton food="🥛" />
+          <EmojiButton food="🥚" />
+          <EmojiButton food="🐟" />
+          <EmojiButton food="🐔" />
+          <EmojiButton food="🐖" />
+          <EmojiButton food="🐄" />
+        </div>
+        <button>저장하기</button>
+      </section>
+      <hr />
+      <section>
+        <p>오늘의 식단</p>
+        <button onClick={showNewDiet}>+</button>
+      </section>
+      {modal}
+    </Fragment>
   );
 }
 
