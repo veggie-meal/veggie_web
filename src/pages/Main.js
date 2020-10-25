@@ -4,7 +4,7 @@ import NavBar from "../components/NavBar";
 import Goal from "../components/Goal"
 import {Layout} from "antd";
 
-const { Header, Footer, Sider, Content } = Layout;
+const { Content } = Layout;
 
 function Main() {
   return (
