@@ -9,7 +9,7 @@ const { Header, Footer, Sider, Content } = Layout;
 function Main() {
   return (
     <Layout>
-        <Content style={{padding:'10px 20px',minHeight:"100vh",backgroundColor:"white"}}>
+        <Content style={{padding:'40px 20px',minHeight:"100vh",backgroundColor:"white"}}>
             <div className="site-layout-content">
                 <MainCalendar/>
                 <Goal/>
