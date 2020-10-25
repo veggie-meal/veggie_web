@@ -34,3 +34,9 @@ code {
   margin: auto;
   margin-top: 10px;
 }
+
+.goal-block {
+  margin: auto;
+  padding: 5px 10px;
+  height: 30px;
+}
