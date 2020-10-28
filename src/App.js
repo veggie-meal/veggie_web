@@ -24,10 +24,10 @@ function App() {
             <Login />
           </Route>
         </Switch>
-        {/* <nav>
+        <nav>
           <Link to="/">Main</Link>
           <Link to="/today">Today</Link>
-        </nav> */}
+        </nav>
       </Router>
     </div>
   );
