@@ -18,8 +18,8 @@ function App() {
       <Router>
         <Content style={{padding:'40px 20px'}}>
           <Switch>
-            <Route exact path="/" component={Login} />
-            <Route exact path="/main" component={Main} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/" component={Main} />
             <Route exact path="/today/:dayId" component={Today} />
             <Route exact path="/badge" component={Badge} />
             <Route exact path="/setting" component={Setting} />
