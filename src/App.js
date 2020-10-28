@@ -10,18 +10,22 @@ import Today from './pages/Today';
 import Badge from './pages/Badge';
 import Setting from './pages/Setting';
 import NotFound from './pages/NotFound';
+import Login from './pages/Login'
 
 function App() {
   return (
     <Layout style={{minHeight:"100vh"}}>
       <Router>
         <Switch>
-          <Route exact path="/">
+          <Route exact path="/main">
             <Main />
           </Route>
           <Route path="/today/:dayId" component={Today} />
           <Route exact path="/badge">
             <Badge />
+          </Route>
+          <Route exact path="/">
+            <Login />
           </Route>
           <Route exact path="/setting">
             <Setting />
