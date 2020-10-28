@@ -13,7 +13,7 @@ function Login() {
   }
 
   return (
-    <div>
+    <div className="site-layout-content">
       <h1>로그인</h1>
       <KaKaoBtn
         jsKey={config.KAKAO_API}
