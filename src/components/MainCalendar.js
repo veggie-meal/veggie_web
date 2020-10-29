@@ -1,5 +1,5 @@
 import React from 'react';
-import { Calendar, Avatar } from 'antd';
+import { Button, Calendar, Avatar } from 'antd';
 import { withRouter} from "react-router-dom";
 import moment from 'moment';
 
@@ -25,7 +25,7 @@ function dateFullCellRender(value) {
 
     }
     return (
-        <Avatar style={{ color: 'black', backgroundColor: color, verticalAlign: 'middle' }} size="medium">
+        <Avatar style={{ textDecorationStyle: 'bold', color: 'black', backgroundColor: color, verticalAlign: 'middle' }} size="medium">
             {value.date()}
         </Avatar>
     );
@@ -38,13 +38,13 @@ class MainCalendar extends React.Component {
     };
 
     onSelect = value => {
+        if (this.state.value.format('YYYY-MM') == value.format('YYYY-MM')) {
+            this.props.history.push(`/today/${value.format('YYYY-MM-DD')}`)
+        }
         this.setState({
             value,
             selectedValue: value,
         });
-
-        this.props.history.push(`/today/${value.format('YYYY-MM-DD')}`)
-
     };
 
     onPanelChange = (value, mode) => {
@@ -53,7 +53,6 @@ class MainCalendar extends React.Component {
 
     render() {
         const { value, selectedValue } = this.state;
-        const history = this.props;
         return (
             <div className="site-calendar-demo-card">
                 <Calendar
