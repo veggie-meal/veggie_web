@@ -1,17 +1,30 @@
 import React from 'react';
-import axios from "axios";
+import axios from 'axios';
 import styled from 'styled-components';
 import KaKaoLogin from 'react-kakao-login';
+import { Image } from 'antd';
 
 import * as config from '../config';
 
-import { Image } from "antd";
-
-function Login() {
+function Login({ authenticateUser }) {
   function kakoLoginHandler(result) {
     const token = result.response.access_token;
     const id = result.profile.id;
-    call_login(token, id);
+    login(token, id);
+  }
+
+  async function login(token, id) {
+    const url = config.API_ADDR + 'user/login';
+    const data = {
+      userAT: token,
+      userID: id,
+    };
+
+    const response = await axios.post(url, data);
+
+    if(response.data.result && response.data.code !== '-1'){
+      authenticateUser();
+    }
   }
 
   return (
@@ -40,20 +53,5 @@ const KaKaoBtn = styled(KaKaoLogin)`
   background-size: cover;
   border: none;
 `;
-
-const call_login = async (token, id) => {
-  const url = config.API_ADDR + "user/login";
-  const data = {
-    userAT : token,
-    userID : id
-  };
-
-  const response = await axios.post(url, data);
-
-  if(response.data.result && response.data.code !== "-1"){
-    // authenticateUser();
-    console.log(response);
-  }
-};
 
 export default Login;
