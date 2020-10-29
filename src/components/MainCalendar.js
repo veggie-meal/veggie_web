@@ -12,7 +12,7 @@ listData['2020-03-15'] = 'ovo';
 listData['2020-03-25'] = 'ovo';
 listData['2020-03-09'] = 'ovo';
 
-function dateCellRender(value) {
+function dateFullCellRender(value) {
     var color = '#faf3dd';
     console.log(listData[value.format('YYYY-MM-DD')])
     switch (listData[value.format('YYYY-MM-DD')]) {
@@ -25,14 +25,16 @@ function dateCellRender(value) {
 
     }
     return (
-        <Avatar style={{ backgroundColor: color, verticalAlign: 'middle' }} size="small"/>
+        <Avatar style={{ color: 'black', backgroundColor: color, verticalAlign: 'middle' }} size="medium">
+            {value.date()}
+        </Avatar>
     );
 }
 
 class MainCalendar extends React.Component {
     state = {
-        value: moment('2017-01-25'),
-        selectedValue: moment('2017-01-25'),
+        value: moment('2020-03-25'),
+        selectedValue: moment('2020-03-25'),
     };
 
     onSelect = value => {
@@ -45,16 +47,21 @@ class MainCalendar extends React.Component {
 
     };
 
+    onPanelChange = (value, mode) => {
+        console.log(mode);
+    }
+
     render() {
         const { value, selectedValue } = this.state;
         const history = this.props;
         return (
             <div className="site-calendar-demo-card">
                 <Calendar
-                    dateCellRender={dateCellRender}
+                    dateFullCellRender={dateFullCellRender}
                     fullscreen={false}
                     value={value}
                     onSelect={this.onSelect}
+                    onPanelChange={this.onPanelChange}
                 />
             </div>
         );
