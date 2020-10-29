@@ -23,7 +23,7 @@ function Login({ authenticateUser }) {
     const response = await axios.post(url, data);
 
     if(response.data.result && response.data.code !== '-1'){
-      authenticateUser();
+      authenticateUser(response.data.code); // 임시
     }
   }
 

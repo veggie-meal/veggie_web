@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { Layout } from 'antd';
 
@@ -13,16 +13,12 @@ import Login from './pages/Login';
 const { Content } = Layout;
 
 function App() {
-  const [user, setUser] = useState(null); // 초기 값 로컬스토리지에서 받아오기. 없으면 null
+  const [user, setUser] = useState(localStorage.getItem('veggieUser')); // 초기 값 로컬스토리지에서 받아오기. 없으면 null
   let navBar;
 
-  useEffect(() => {
-    //
-  });
-
-  function authenticateUser() {
-    setUser(1); // 임시
-    // 류저 정보 들어오면 로컬스토리지에 추가한 후 state 업데이트
+  function authenticateUser(code) {
+    setUser(code); // 임시
+    localStorage.setItem('veggieUser', code);
   }
 
   if (user) {
