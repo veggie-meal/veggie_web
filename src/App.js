@@ -13,17 +13,20 @@ import Login from './pages/Login';
 const { Content } = Layout;
 
 function App() {
-  const [user, setUser] = useState(null);
-  let navBar, redirect;
+  const [user, setUser] = useState(null); // 초기 값 로컬스토리지에서 받아오기. 없으면 null
+  let navBar;
 
   useEffect(() => {
-    // if (localStorage.veggieUserAT)
+    //
   });
+
+  function authenticateUser() {
+    setUser(1); // 임시
+    // 류저 정보 들어오면 로컬스토리지에 추가한 후 state 업데이트
+  }
 
   if (user) {
     navBar = <NavBar />;
-  } else {
-    redirect = <Redirect to="/login" />;
   }
 
   return (
@@ -31,12 +34,21 @@ function App() {
       <Router>
         <Content style={{padding:'40px 20px', marginBottom:'46px'}}>
           <Switch>
-            <Route exact path="/login" component={Login} />
-            {redirect}
-            <Route exact path="/" component={Main} />
-            <Route exact path="/today/:dayId" component={Today} />
-            <Route exact path="/badge" component={Badge} />
-            <Route exact path="/setting" component={Setting} />
+            <Route exact path="/login">
+              <Login authenticateUser={authenticateUser} />
+            </Route>
+            <Route exact path="/">
+              {user ? <Main /> : <Redirect to="/login" />}
+            </Route>
+            <Route exact path="/today/:dayId">
+              {user ? <Today /> : <Redirect to="/login" />}
+            </Route>
+            <Route exact path="/badge" component={Badge}>
+              {user ? <Badge /> : <Redirect to="/login" />}
+            </Route>
+            <Route exact path="/setting" component={Setting}>
+              {user ? <Setting /> : <Redirect to="/login" />}
+            </Route>
             <NotFound/>
           </Switch>
         </Content>

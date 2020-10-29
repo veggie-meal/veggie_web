@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useRouteMatch } from 'react-router-dom';
 
 import EmojiButton from '../components/EmojiButton';
 import NewDiet from '../components/NewDiet';
 
-function Today({ match }) {
+function Today() {
+  const match = useRouteMatch('/today/:dayId');
   let [, month, date] = match.params.dayId.split('-');
   if (month[0] === '0') month = month[1];
   if (date[0] === '0') date = date[1];
