@@ -5,9 +5,7 @@ import KaKaoLogin from 'react-kakao-login';
 
 import * as config from '../config';
 
-import {Layout, Image} from "antd";
-
-const { Content } = Layout;
+import { Image } from "antd";
 
 function Login() {
   function kakoLoginHandler(result) {

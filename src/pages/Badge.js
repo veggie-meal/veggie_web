@@ -6,7 +6,6 @@ function Badge() {
   let badgeNum = 7;
   let colCount = 3;
   let rowCount = badgeNum / colCount;
-  let colCode = '';
   const rows = [];
 
   for (let j = 0; j < rowCount+1; j++) {
@@ -17,7 +16,6 @@ function Badge() {
           <BadgeItem id={j*colCount+i}/>
         </Col>,
       );
-      colCode += `  <Col span={${24 / colCount}} />\n`;
     }
     rows.push(
       <Row gutter={[8,32]}>{cols}</Row>
