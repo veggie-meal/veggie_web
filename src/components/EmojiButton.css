@@ -1,13 +1,13 @@
-label {
+.emoji-button-label {
   background: none;
   font-size: 60px;
   text-shadow: -4px -4px 8px white, 4px 4px 8px black;
 }
 
-input:checked + label {
+.emoji-button-input:checked + label {
   text-shadow: -1px -1px 8px white, 1px 1px 8px black;
 }
 
-input {
+.emoji-button-input {
   display: none;
 }
