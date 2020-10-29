@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import EmojiButton from '../components/EmojiButton';
 import NewDiet from '../components/NewDiet';
 
@@ -28,7 +29,7 @@ function Today({ match }) {
     <>
       <header>{month}월 {date}일의 식단</header>
       <section className="site-layout-content">
-        <div style={{display:'flex', flexWrap:'wrap'}}>
+        <div style={{display:'grid', gridTemplateRows:'repeat(3, 1fr)', gridTemplateColumns:'repeat(3, 1fr)'}}>
           <EmojiButton food="🥦" />
           <EmojiButton food="🥛" />
           <EmojiButton food="🥚" />
