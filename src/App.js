@@ -16,7 +16,7 @@ function App() {
   return (
     <Layout style={{height:"100%"}}>
       <Router>
-        <Content style={{padding:'40px 20px'}}>
+        <Content style={{padding:'40px 20px', marginBottom:'46px'}}>
           <Switch>
             <Route exact path="/login" component={Login} />
             <Route exact path="/" component={Main} />
