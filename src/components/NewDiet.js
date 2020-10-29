@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import './NewDiet.css';
+import { Button, Input } from 'antd';
 
 function NewDiet({ closeNewDiet }) {
-  const [foodList, setFoodList] = useState([<input />]);
+  const [foodList, setFoodList] = useState([<Input />]);
 
   function closeSelf() {
     closeNewDiet();
@@ -13,7 +14,7 @@ function NewDiet({ closeNewDiet }) {
     e.preventDefault();
     console.log('addFood');
     // 음식 목록을 먼저 받아 오고
-    setFoodList([...foodList, <input />]);
+    setFoodList([...foodList, <Input />]);
   }
 
   function saveDiet(e) {
@@ -23,22 +24,22 @@ function NewDiet({ closeNewDiet }) {
 
   return (
     <div id="background">
-      <div id="modal">
-        <button onClick={closeSelf}>x</button>
+      <div class="site-layout-content">
+        <Button type="text" onClick={closeSelf}>x</Button>
         <div>식단 등록</div>
         <form>
           <section>
             <label>식단명</label>
-            <input />
+            <Input />
           </section>
           <section>
             <label>음식 목록</label>
             <div>
               {foodList}
             </div>
-            <button onClick={addFood}>+</button>
+            <Button type="primary" shape="circle" onClick={addFood}>+</Button>
           </section>
-          <button onClick={saveDiet}>저장하기</button>
+          <Button type="primary" onClick={saveDiet}>저장하기</Button>
         </form>
       </div>
     </div>

@@ -10,8 +10,7 @@
   left: 0px;
 }
 
-#modal {
-  background-color: white;
+input {
+  display: block;
   width: 200px;
-  height: 400px;
 }
