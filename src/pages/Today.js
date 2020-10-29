@@ -4,6 +4,7 @@ import NewDiet from '../components/NewDiet';
 
 function Today({ match }) {
   let [, month, date] = match.params.dayId.split('-');
+  if (month[0] === '0') month = month[1];
   if (date[0] === '0') date = date[1];
 
   const [isNewDietVisible, setIsNewDietVisible] = useState(false);
