@@ -1,39 +1,55 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useRouteMatch } from 'react-router-dom';
+
 import EmojiButton from '../components/EmojiButton';
-import { Link } from "react-router-dom";
-import PropTypes from 'prop-types';
-import {Button, Layout} from "antd";
+import NewDiet from '../components/NewDiet';
 
-const { Content } = Layout;
+function Today() {
+  const match = useRouteMatch('/today/:dayId');
+  let [, month, date] = match.params.dayId.split('-');
+  if (month[0] === '0') month = month[1];
+  if (date[0] === '0') date = date[1];
 
-class Today extends React.PureComponent {
-    static propTypes = {
-        match: PropTypes.object.isRequired,
-        location: PropTypes.object.isRequired,
-        history: PropTypes.object.isRequired
-    }
-    render () {
-        const { match} = this.props
+  const [isNewDietVisible, setIsNewDietVisible] = useState(false);
 
-        return (
-            <Layout>
-                <Content style={{padding:'40px 20px',minHeight:"100vh",backgroundColor:"white"}}>
-                    <div className="site-layout-content">
-                        <div className="site-calendar-demo-card" style={{textAlign:"center",marginTop:"20px"}}>
-                            <Button style={{float:"right"}}><Link to="/">Home</Link></Button>
-                        <h2>{match.params.dayId}</h2>
-                        <main>
-                            <EmojiButton/>
-                            <EmojiButton/>
-                            <EmojiButton/>
-                        </main>
-                        </div>
-                    </div>
-                </Content>
-            </Layout>
-        )
-    }
+  function showNewDiet() {
+    setIsNewDietVisible(true);
+  }
+
+  function saveToday() {
+    console.log('insert_vegan?');
+  }
+
+  function closeNewDiet() {
+    setIsNewDietVisible(false);
+  }
+
+  let modal;
+  if (isNewDietVisible) modal = <NewDiet closeNewDiet={closeNewDiet} />;
+
+  return (
+    <>
+      <header>{month}월 {date}일의 식단</header>
+      <section className="site-layout-content">
+        <div style={{display:'grid', gridTemplateRows:'repeat(3, 1fr)', gridTemplateColumns:'repeat(3, 1fr)'}}>
+          <EmojiButton food="🥦" />
+          <EmojiButton food="🥛" />
+          <EmojiButton food="🥚" />
+          <EmojiButton food="🐟" />
+          <EmojiButton food="🐔" />
+          <EmojiButton food="🐖" />
+          <EmojiButton food="🐄" />
+        </div>
+        <button onClick={saveToday}>저장하기</button>
+      </section>
+      <hr />
+      <section className="site-layout-content">
+        <p>오늘의 식단</p>
+        <button onClick={showNewDiet}>+</button>
+      </section>
+      {modal}
+    </>
+  );
 }
-
 
 export default Today;

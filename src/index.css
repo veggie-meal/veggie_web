@@ -9,15 +9,13 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+#root {
+  height: 100%;
 }
 
 .site-layout-content {
   background: #fff;
   padding: 12px;
-  min-height: 280px;
 }
 
 .site-calendar-demo-card {

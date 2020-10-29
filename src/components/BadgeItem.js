@@ -1,5 +1,5 @@
 import React from 'react';
-import {Progress, Card, Image} from 'antd';
+import { Image } from 'antd';
 
 const badges = ["/image/sky.png", "/image/apple.png", "/image/eggplant.png", "/image/cactus.png",
   "/image/tree.png", "/image/vegetable.png", "/image/carrot.png"]

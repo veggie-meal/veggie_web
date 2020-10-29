@@ -1,37 +1,47 @@
 import React from 'react';
-import axios from "axios";
+import axios from 'axios';
 import styled from 'styled-components';
 import KaKaoLogin from 'react-kakao-login';
+import { Image } from 'antd';
 
 import * as config from '../config';
 
-import {Layout, Image} from "antd";
-
-const { Content } = Layout;
-
-function Login() {
+function Login({ authenticateUser }) {
   function kakoLoginHandler(result) {
     const token = result.response.access_token;
     const id = result.profile.id;
-    call_login(token, id);
+    login(token, id);
+  }
+
+  async function login(token, id) {
+    const url = config.API_ADDR + 'user/login';
+    const data = {
+      userAT: token,
+      userID: id,
+    };
+
+    const response = await axios.post(url, data);
+
+    if(response.data.result && response.data.code !== '-1'){
+      authenticateUser();
+    }
   }
 
   return (
-      <Layout>
-        <Content style={{padding:'40px 20px',minHeight:"100vh",backgroundColor:"white", textAlign:"center"}}>
-          <Image
-              width={200}
-              src="/image/veggie.png"
-          />
-          <KaKaoBtn
-          jsKey={config.KAKAO_API}
-          buttonText=""
-          onSuccess={result => kakoLoginHandler(result)}
-          onFailure={kakoLoginHandler}
-          getProfile={true}
-          />
-        </Content>
-      </Layout>
+    <div className="site-layout-content">
+      <h1>로그인</h1>
+      <Image
+        width={200}
+        src="/image/veggie.png"
+      />
+      <KaKaoBtn
+        jsKey={config.KAKAO_API}
+        buttonText=""
+        onSuccess={result => kakoLoginHandler(result)}
+        onFailure={kakoLoginHandler}
+        getProfile={true}
+      />
+    </div>
   );
 }
 
@@ -43,19 +53,5 @@ const KaKaoBtn = styled(KaKaoLogin)`
   background-size: cover;
   border: none;
 `;
-
-const call_login = async (token, id) => {
-  const url = config.API_ADDR + "user/login";
-  const data = {
-    userAT : token,
-    userID : id
-  };
-
-  const response = await axios.post(url, data);
-
-  if(response.data.result && response.data.code !== "-1"){
-    document.location.href = "/main";
-  }
-};
 
 export default Login;

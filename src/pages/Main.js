@@ -1,22 +1,14 @@
 import React from 'react';
-import MainCalendar from '../components/MainCalendar';
-import NavBar from "../components/NavBar";
-import Goal from "../components/Goal"
-import {Layout} from "antd";
 
-const { Content } = Layout;
+import MainCalendar from '../components/MainCalendar';
+import Goal from '../components/Goal';
 
 function Main() {
   return (
-    <Layout>
-        <Content style={{padding:'40px 20px',minHeight:"100vh",backgroundColor:"white"}}>
-            <div className="site-layout-content">
-                <MainCalendar/>
-                <Goal/>
-            </div>
-        </Content>
-        <NavBar/>
-    </Layout>
+    <div className="site-layout-content">
+      <MainCalendar />
+      <Goal />
+    </div>
   );
 }
 

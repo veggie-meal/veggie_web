@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Calendar, Avatar } from 'antd';
+import { Calendar, Avatar } from 'antd';
 import { withRouter} from "react-router-dom";
 import moment from 'moment';
 
@@ -21,6 +21,8 @@ function dateFullCellRender(value) {
             break;
         case ('ovo'):
             color = '#c8d5b9';
+            break;
+        default:
             break;
 
     }
@@ -52,7 +54,7 @@ class MainCalendar extends React.Component {
     }
 
     render() {
-        const { value, selectedValue } = this.state;
+        const { value } = this.state;
         return (
             <div className="site-calendar-demo-card">
                 <Calendar

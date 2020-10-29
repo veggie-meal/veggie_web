@@ -1,8 +1,13 @@
 import React from 'react';
 
-function EmojiButton() {
+import './EmojiButton.css';
+
+function EmojiButton({ food }) {
   return (
-    <button>EmojiButton</button>
+    <div className="emojibutton-container">
+      <input type="checkbox" id={food} className="emojibutton-input" />
+      <label htmlFor={food} className="emojibutton-label">{ food }</label>
+    </div>
   );
 }
 
