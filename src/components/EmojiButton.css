@@ -1,13 +1,17 @@
-.emoji-button-label {
+.emojibutton-container {
+  text-align: center;
+}
+
+.emojibutton-label {
   background: none;
   font-size: 60px;
   text-shadow: -4px -4px 8px white, 4px 4px 8px black;
 }
 
-.emoji-button-input:checked + label {
+.emojibutton-input:checked + label {
   text-shadow: -1px -1px 8px white, 1px 1px 8px black;
 }
 
-.emoji-button-input {
+.emojibutton-input {
   display: none;
 }
