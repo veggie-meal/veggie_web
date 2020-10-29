@@ -5,6 +5,10 @@ import KaKaoLogin from 'react-kakao-login';
 
 import * as config from '../config';
 
+import {Layout, Image} from "antd";
+
+const { Content } = Layout;
+
 function Login() {
   function kakoLoginHandler(result) {
     const token = result.response.access_token;
@@ -13,16 +17,21 @@ function Login() {
   }
 
   return (
-    <div>
-      <h1>로그인</h1>
-      <KaKaoBtn
-        jsKey={config.KAKAO_API}
-        buttonText=""
-        onSuccess={result => kakoLoginHandler(result)}
-        onFailure={kakoLoginHandler}
-        getProfile={true}
-      />
-    </div>
+      <Layout>
+        <Content style={{padding:'40px 20px',minHeight:"100vh",backgroundColor:"white", textAlign:"center"}}>
+          <Image
+              width={200}
+              src="/image/veggie.png"
+          />
+          <KaKaoBtn
+          jsKey={config.KAKAO_API}
+          buttonText=""
+          onSuccess={result => kakoLoginHandler(result)}
+          onFailure={kakoLoginHandler}
+          getProfile={true}
+          />
+        </Content>
+      </Layout>
   );
 }
 
