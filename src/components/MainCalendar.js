@@ -44,8 +44,8 @@ function MainCalendar(props) {
   const [value, setValue] = useState(moment());
 
   useEffect(() => {
-    const url = config.API_ADDR + 'api/calander/list';
-    axios.get(url, {
+    const url = config.API_ADDR + 'calander/list';
+    axios.post(url, {
       startDate: 1,
       endDate: 31,
       userId: 1,
