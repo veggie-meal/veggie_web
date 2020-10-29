@@ -17,8 +17,12 @@ function Today({ match }) {
     console.log('insert_vegan?');
   }
 
+  function closeNewDiet() {
+    setIsNewDietVisible(false);
+  }
+
   let modal;
-  if (isNewDietVisible) modal = <NewDiet />;
+  if (isNewDietVisible) modal = <NewDiet closeNewDiet={closeNewDiet} />;
 
   return (
     <>
