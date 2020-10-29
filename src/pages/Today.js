@@ -13,6 +13,10 @@ function Today({ match }) {
     setIsNewDietVisible(true);
   }
 
+  function saveToday() {
+    console.log('insert_vegan?');
+  }
+
   let modal;
   if (isNewDietVisible) modal = <NewDiet />;
 
@@ -29,7 +33,7 @@ function Today({ match }) {
           <EmojiButton food="🐖" />
           <EmojiButton food="🐄" />
         </div>
-        <button>저장하기</button>
+        <button onClick={saveToday}>저장하기</button>
       </section>
       <hr />
       <section className="site-layout-content">
