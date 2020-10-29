@@ -51,7 +51,8 @@ const call_login = async (token, id) => {
   const response = await axios.post(url, data);
 
   if(response.data.result && response.data.code !== "-1"){
-    document.location.href = "/main";
+    // authenticateUser();
+    console.log(response);
   }
 };
 
