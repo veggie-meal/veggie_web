@@ -51,7 +51,7 @@ function MainCalendar(props) {
       userId: 1,
     })
     .then(function(res) {
-      // res.calanderList
+      console.log(res.data.calanderList)
     })
     .catch(function(err) {
       console.log(err);
