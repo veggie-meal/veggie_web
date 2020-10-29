@@ -56,7 +56,7 @@ function MainCalendar(props) {
     .catch(function(err) {
       console.log(err);
     });
-  });
+  }, []);
 
   function onSelect(selected) {
     if (value.format('YYYY-MM') === selected.format('YYYY-MM')) {
