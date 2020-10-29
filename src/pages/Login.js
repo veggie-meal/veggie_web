@@ -5,6 +5,10 @@ import KaKaoLogin from 'react-kakao-login';
 
 import * as config from '../config';
 
+import {Layout, Image} from "antd";
+
+const { Content } = Layout;
+
 function Login() {
   function kakoLoginHandler(result) {
     const token = result.response.access_token;
@@ -15,6 +19,10 @@ function Login() {
   return (
     <div className="site-layout-content">
       <h1>로그인</h1>
+      <Image
+        width={200}
+        src="/image/veggie.png"
+      />
       <KaKaoBtn
         jsKey={config.KAKAO_API}
         buttonText=""
