@@ -38,7 +38,7 @@ class MainCalendar extends React.Component {
     };
 
     onSelect = value => {
-        if (this.state.value.format('YYYY-MM') == value.format('YYYY-MM')) {
+        if (this.state.value.format('YYYY-MM') === value.format('YYYY-MM')) {
             this.props.history.push(`/today/${value.format('YYYY-MM-DD')}`)
         }
         this.setState({
