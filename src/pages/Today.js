@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import axios from 'axios';
+import { Button, Typography, Divider } from 'antd';
 
 import EmojiButton from '../components/EmojiButton';
 import NewDiet from '../components/NewDiet';
 import * as config from '../config';
+
+const { Title, Text } = Typography;
 
 function Today() {
   const match = useRouteMatch('/today/:dayId');
@@ -67,11 +70,23 @@ function Today() {
   let modal;
   if (isNewDietVisible) modal = <NewDiet closeNewDiet={closeNewDiet} />;
 
+  let diets;
+  if (!dietList) {
+    dietList.forEach(diet => diets.push(<div>식단들</div>));
+  } else {
+    diets = (
+      <div style={{marginBottom:'20px'}}>
+        <div style={{fontSize:'40px',marginBottom:'20px'}}>🍃</div>
+        <Text type="secondary" style={{color:'#8fc0a9'}}>아직 등록된 식단이 없어요!</Text>
+      </div>
+    );
+  }
+
   return (
     <>
-      <header>{month}월 {date}일의 식단</header>
-      <section className="site-layout-content">
-        <div style={{display:'grid', gridTemplateRows:'repeat(3, 1fr)', gridTemplateColumns:'repeat(3, 1fr)'}}>
+      <section className="site-layout-content" style={{textAlign:'center'}}>
+        <Title level={4}>{month}월 {date}일의 비건 도전</Title>
+        <div style={{display:'grid', gridTemplateRows:'repeat(2, 1fr)', gridTemplateColumns:'repeat(3, 1fr)', marginBottom: '30px'}}>
           <EmojiButton food="VEGETABLE" />
           <EmojiButton food="MILK" />
           <EmojiButton food="EGG" />
@@ -79,12 +94,11 @@ function Today() {
           <EmojiButton food="CHICKEN" />
           <EmojiButton food="MEAT" />
         </div>
-        <button onClick={saveToday}>저장하기</button>
-      </section>
-      <hr />
-      <section className="site-layout-content">
-        <p>오늘의 식단</p>
-        <button onClick={showNewDiet}>+</button>
+        <Button type="primary" onClick={saveToday}>저장하기</Button>
+        <Divider dashed />
+        <Title level={4}>{month}월 {date}일의 식단</Title>
+        {diets}
+        <Button type="primary" shape="circle" onClick={showNewDiet}>+</Button>
       </section>
       {modal}
     </>
