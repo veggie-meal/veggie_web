@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Col, Row } from 'antd';
 import axios from 'axios';
 
 import BadgeItem from '../components/BadgeItem';
@@ -9,9 +8,10 @@ function Badge() {
   const [badges, setBadges] = useState([]);
 
   useEffect(() => {
-    axios.get(config.API_ADDR + 'veggie/list', { userId: 1 })
+    axios.post(config.API_ADDR + 'veggie/list', { userId: 1 })
     .then(function(res) {
-      setBadges(res.veggieList.filter(veggie => veggie.is_my === 1));
+      console.log(res)
+      setBadges(res.data.veggieList.filter(veggie => veggie.is_my === 1));
     })
     .catch(function(err) {
       console.log(err);
@@ -74,27 +74,8 @@ function Badge() {
     });
   }, []);
 
-  let badgeNum = 7;
-  let colCount = 3;
-  let rowCount = badgeNum / colCount;
-  const rows = [];
-
-  for (let j = 0; j < rowCount+1; j++) {
-    const cols = [];
-    for (let i = 0; i < colCount; i++) {
-      cols.push(
-        <Col key={i.toString()} span={24 / colCount}>
-          <BadgeItem id={j*colCount+i}/>
-        </Col>,
-      );
-    }
-    rows.push(
-      <Row gutter={[8,32]}>{cols}</Row>
-    )
-  }
-
   let badgeList = [];
-  badges.forEach(badge => badgeList.push(<BadgeItem id={badge.veggie_id} />));
+  badges.forEach(badge => badgeList.push(<BadgeItem id={badge.veggie_id} key={badge.veggie_id} />));
 
   return (
     <div className="site-layout-content" style={{display:'grid', gridTemplateRows:'repeat(3, 1fr)', gridTemplateColumns:'repeat(3, 1fr)'}}>
