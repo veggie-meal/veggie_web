@@ -29,9 +29,9 @@ function App() {
       setUserId(id);
       setUserToken(token);
       setUserName(name);
-      localStorage.getItem('veggieUserId', id);
-      localStorage.getItem('veggieUserToken', token);
-      localStorage.getItem('veggieUserName', name);
+      localStorage.setItem('veggieUserId', id);
+      localStorage.setItem('veggieUserToken', token);
+      localStorage.setItem('veggieUserName', name);
     }
   }
 
