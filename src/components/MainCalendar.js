@@ -30,10 +30,10 @@ function dateFullCellRender(dateValue) {
       color = '#F1E2CC';
       break;
     case 'FLEXITARIAN':
-      color = '#DEBA90';
+      color = '#E7C69F';
       break;
     default:
-      color = '#DE9166';
+      color = '#E2A684';
       break;
   }
     return (
