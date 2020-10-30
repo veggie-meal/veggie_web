@@ -10,8 +10,7 @@ function Badge() {
   useEffect(() => {
     axios.post(config.API_ADDR + 'veggie/list', { userId: 1 })
     .then(function(res) {
-      console.log(res)
-      setBadges(res.data.veggieList.filter(veggie => veggie.is_my === 1));
+      setBadges(res.data.veggieList);
     })
     .catch(function(err) {
       console.log(err);
