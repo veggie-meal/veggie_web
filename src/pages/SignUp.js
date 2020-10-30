@@ -43,9 +43,25 @@ class SignUp extends React.Component {
     const name = this.props.name;
     return(
       <div className="site-layout-content">
+        <br/><br/><br/><br/><br/>
         <center>
+          <h1>🥗WELCOME🥗</h1>
           <h3>안녕하세요, {name}님!</h3>
-          <h3>이곳에 {name}님의 목표를 선택해 주세요.</h3>
+          <span>VEGGIE에 오신 것을 환영합니다. <br/></span>
+
+          <br/><br/>
+
+          <span style={{color:"gray"}}>
+            VEGGIE, 통칭 배찌에서는,<br/>
+            각자의 목표를 설정해 목표 달성률에 따라<br/>
+            귀여운 배찌를 얻으실 수 있습니다. <br/>
+             <br/>
+            
+            이곳에 {name}님의 목표를 선택해 주세요.
+          </span>
+
+          <br/>
+
           <br/>
           <form onSubmit={this.handleSubmit}>
             <Select defaultValue="FLEXITARIAN" style={{ width: 300 }} onChange={this.handleChange}>

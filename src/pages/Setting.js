@@ -1,5 +1,8 @@
 import React from 'react';
 import { Select, Button, Card, Collapse, Form } from 'antd';
+import axios from 'axios';
+
+import * as config from '../config';
 
 const { Meta } = Card;
 const { Option } = Select;
@@ -7,12 +10,20 @@ const { Option } = Select;
 function Setting({ id, token, name, goal }) {
   const [form] = Form.useForm();
 
-  function handleSubmit(e) {
-    console.log(e.goal)
+  async function handleSubmit(e) {
+    const vegan_type = goal;
+    const url = config.API_ADDR + 'user/goal';
+    const data = {
+      userId: id,
+      vegan_type: vegan_type,
+    };
+
+    const response = await axios.post(url, data);
+    if (response.data.result) alert("수정되었습니다.");
   }
 
   function handleChange(event) {
-    console.log(event)
+    goal = event;
   }
 
   return (
@@ -25,7 +36,18 @@ function Setting({ id, token, name, goal }) {
           />
         }
       >
-        <Meta title={name} />
+        <center>
+          <span style={{color:"gray"}}>
+            당신의 손안에 있는 <br/>
+            작은 채식 도우미, <br/>
+            <b style={{color:"#68b0ab"}}>V E G G I E</b>
+          </span>
+        </center>
+        <br/><br/>
+
+        <b>이름</b><Meta title={name} />
+        <br/>
+        <b>목표</b>
         <div className="goal-select">
           <Form layout="inline" form={form} onFinish={handleSubmit}>
             <Form.Item name="goal" className="select-bar">
@@ -39,8 +61,9 @@ function Setting({ id, token, name, goal }) {
                 <Option value="VEGAN">비건</Option>
               </Select>
             </Form.Item>
+            <br/><br/>
               <Form.Item>
-                <Button type="default" htmlType="submit">변경</Button>
+                <Button type="primary" htmlType="submit">변경</Button>
               </Form.Item>
           </Form>
         </div>

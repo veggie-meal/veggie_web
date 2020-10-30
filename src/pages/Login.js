@@ -34,31 +34,57 @@ class Login extends React.Component {
 
   render() {
       return (
-        <div className="site-layout-content">
-          <h1>로그인</h1>
-          <Image
-            width={200}
-            src="/image/veggie.png"
-          />
-          <KaKaoBtn
-            jsKey={config.KAKAO_API}
-            buttonText=""
-            onSuccess={result => this.kakoLoginHandler(result)}
-            onFailure={this.kakoLoginHandler}
-            getProfile={true}
-          />
+        // <div className="site-layout-content" 
+        // style={{border:"#68b0ab", borderStyle:"dashed", borderRadius:"15px", borderWidth:"2px", padding:"20px"}}>
+        <div className="site-layout-content" >
+          <br/><br/><br/><br/><br/>
+          <center>
+            <Image
+              width={100}
+              src="/image/vegetable.png"
+            /> 
+            {/* <h1>🍏VEGGIE🍏</h1>  */}
+            <br/><br/>
+            {/* <h1 style={{background:"#68b0ab", fontSize: "30px"
+            , color: "white", borderRadius: "10px", width:"50%", marginBottom:"20px"}}>
+              VEGGIE
+            </h1> */}
+            <h1>LOGIN</h1>
+            <h3>🥗</h3>
+            <br/>
+            <span style={{color:"gray"}}>
+              당신의 손안에 있는 <br/>
+              작은 채식 도우미, <br/>
+              <b style={{color:"#68b0ab"}}>V E G G I E</b>
+            </span>
+            <br/>
+            
+            <br/><br/><br/><br/><br/>
+
+            <KaKaoBtn
+              jsKey={config.KAKAO_API}
+              buttonText=""
+              onSuccess={result => this.kakoLoginHandler(result)}
+              onFailure={this.kakoLoginHandler}
+              getProfile={true}
+            />
+
+            <br/><br/><br/><br/><br/> <br/><br/>
+          </center>
         </div>
       );
   }
 }
 
 const KaKaoBtn = styled(KaKaoLogin)`
-  background: url("/image/kakao_login_large_wide.png");
-  width:90%;
+  background: url("/image/kakao_login_large_narrow.png");
+  width:70%;
   height:50px;
   background-repeat: no-repeat;
   background-size: cover;
   border: none;
+  border-radius: 10px;
 `;
+
 
 export default withRouter(Login);
