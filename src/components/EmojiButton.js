@@ -2,7 +2,7 @@ import React from 'react';
 
 import './EmojiButton.css';
 
-function EmojiButton({ food }) {
+function EmojiButton({ food, handleChange, defaultFoodList }) {
   let foodEmoji;
 
   switch(food) {
@@ -30,7 +30,7 @@ function EmojiButton({ food }) {
 
   return (
     <div className="emojibutton-container">
-      <input type="checkbox" id={food} value={food} className="emojibutton-input" />
+      <input type="checkbox" id={food} value={food} className="emojibutton-input" onChange={handleChange} checked={(defaultFoodList.indexOf(food) !== -1) ? true : false} />
       <label htmlFor={food} className="emojibutton-label">{ foodEmoji }</label>
     </div>
   );

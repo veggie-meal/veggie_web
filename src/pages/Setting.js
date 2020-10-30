@@ -7,8 +7,7 @@ import * as config from '../config';
 const { Meta } = Card;
 const { Option } = Select;
 
-function Setting({ id, token, name }) {
-  let goal = "플렉시테리언"; //localstorage
+function Setting({ id, token, name, goal }) {
   const [form] = Form.useForm();
 
   async function handleSubmit(e) {

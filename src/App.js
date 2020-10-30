@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { Layout } from 'antd';
+import axios from 'axios';
+
+import * as config from './config';
 
 import NavBar from './components/NavBar';
 import Main from './pages/Main';
@@ -18,6 +21,7 @@ function App() {
   const [userToken, setUserToken] = useState(localStorage.getItem('veggieUserToken'));
   const [userName, setUserName] = useState(localStorage.getItem('veggieUserName'));
   const [isNewUser, setIsNewUser] = useState(false);
+  const [userGoal, setUserGoal] = useState('');
 
   function authenticateUser(id, token, name, code) {
     if (code === 2) {
@@ -32,6 +36,14 @@ function App() {
       localStorage.setItem('veggieUserId', id);
       localStorage.setItem('veggieUserToken', token);
       localStorage.setItem('veggieUserName', name);
+      axios.post(config.API_ADDR + 'user/data', { userId })
+      .then(function(res) {
+        console.log(res);
+        setUserGoal(res.data.userData[0].vegan_type);
+      })
+      .catch(function(err) {
+        console.log(err);
+      });
     }
   }
 
@@ -60,16 +72,16 @@ function App() {
               <Login authenticateUser={authenticateUser} />
             </Route>
             <Route exact path="/">
-              {checkUser() ? <Main id={userId} token={userToken} name={userName} /> : <Redirect to="/login" />}
+              {checkUser() ? <Main id={userId} token={userToken} name={userName} goal={userGoal} /> : <Redirect to="/login" />}
             </Route>
             <Route exact path="/today/:dayId">
-              {checkUser() ? <Today id={userId} token={userToken} name={userName} /> : <Redirect to="/login" />}
+              {checkUser() ? <Today id={userId} token={userToken} name={userName} goal={userGoal} /> : <Redirect to="/login" />}
             </Route>
             <Route exact path="/badge" component={Badge}>
-              {checkUser() ? <Badge id={userId} token={userToken} name={userName} /> : <Redirect to="/login" />}
+              {checkUser() ? <Badge id={userId} token={userToken} name={userName} goal={userGoal} /> : <Redirect to="/login" />}
             </Route>
             <Route exact path="/setting" component={Setting}>
-              {checkUser() ? <Setting id={userId} token={userToken} name={userName} /> : <Redirect to="/login" />}
+              {checkUser() ? <Setting id={userId} token={userToken} name={userName} goal={userGoal} /> : <Redirect to="/login" />}
             </Route>
             <NotFound/>
           </Switch>
