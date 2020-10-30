@@ -109,13 +109,13 @@ function Today({ id, token, name}) {
     <>
       <section className="site-layout-content" style={{textAlign:'center'}}>
         <Title level={4}>{month}월 {date}일의 비건 도전</Title>
-        <div style={{display:'grid', gridTemplateRows:'repeat(2, 1fr)', gridTemplateColumns:'repeat(3, 1fr)', marginBottom: '30px'}}>
-          <EmojiButton food="VEGETABLE" handleChange={handleChange} />
-          <EmojiButton food="MILK" handleChange={handleChange} />
-          <EmojiButton food="EGG" handleChange={handleChange} />
-          <EmojiButton food="FISH" handleChange={handleChange} />
-          <EmojiButton food="CHICKEN" handleChange={handleChange} />
-          <EmojiButton food="MEAT" handleChange={handleChange} />
+        <div style={{display:'grid', gridTemplateRows:'repeat(2, 1fr)', gridTemplateColumns:'repeat(3, 1fr)', marginBottom: '12px'}}>
+          <EmojiButton food="VEGETABLE" handleChange={handleChange} defaultFoodList={foodList} />
+          <EmojiButton food="MILK" handleChange={handleChange} defaultFoodList={foodList} />
+          <EmojiButton food="EGG" handleChange={handleChange} defaultFoodList={foodList} />
+          <EmojiButton food="FISH" handleChange={handleChange} defaultFoodList={foodList} />
+          <EmojiButton food="CHICKEN" handleChange={handleChange} defaultFoodList={foodList} />
+          <EmojiButton food="MEAT" handleChange={handleChange} defaultFoodList={foodList} />
         </div>
         <Button type="primary" onClick={saveFood}>저장하기</Button>
         <img src="/image/divider_dashed.svg" style={{margin:'28px 0px',width:'100%'}} />
