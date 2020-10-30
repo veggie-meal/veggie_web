@@ -9,6 +9,7 @@ import Badge from './pages/Badge';
 import Setting from './pages/Setting';
 import NotFound from './pages/NotFound';
 import Login from './pages/Login';
+import SignUp from './pages/SignUp';
 
 const { Content } = Layout;
 
@@ -36,6 +37,9 @@ function App() {
           <Switch>
             <Route exact path="/login">
               <Login authenticateUser={authenticateUser} />
+            </Route>
+            <Route exact path="/SignUp">
+              <SignUp/>
             </Route>
             <Route exact path="/">
               {user ? <Main /> : <Redirect to="/login" />}
