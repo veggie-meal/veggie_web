@@ -28,7 +28,7 @@ const BadgeItem = ({ id, achieved }) => {
   const src = achieved ? badgeImages[id] : badgeImages.mono[id];
 
   return (
-    <div>
+    <div style={{margin:'16px 4px'}}>
       <Image
         width="100%"
         src={src}
