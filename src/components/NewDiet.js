@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import './NewDiet.css';
+import { Button, Input, Typography } from 'antd';
+
+const { Title } = Typography;
 
 function NewDiet({ closeNewDiet }) {
-  const [foodList, setFoodList] = useState([<input />]);
+  const [foodList, setFoodList] = useState([<Input style={{marginBottom:'6px'}} />]);
 
   function closeSelf() {
     closeNewDiet();
@@ -13,7 +16,7 @@ function NewDiet({ closeNewDiet }) {
     e.preventDefault();
     console.log('addFood');
     // 음식 목록을 먼저 받아 오고
-    setFoodList([...foodList, <input />]);
+    setFoodList([...foodList, <Input style={{marginBottom:'6px'}} />]);
   }
 
   function saveDiet(e) {
@@ -23,22 +26,24 @@ function NewDiet({ closeNewDiet }) {
 
   return (
     <div id="background">
-      <div id="modal">
-        <button onClick={closeSelf}>x</button>
-        <div>식단 등록</div>
+      <div className="site-layout-content" style={{textAlign: 'center', width: '80%'}}>
+        <div style={{width:'100%', textAlign:'right'}}>
+          <Button type="text" onClick={closeSelf}>x</Button>
+        </div>
+        <Title level={5} style={{color:'#68B0AB'}}>식단 등록</Title>
         <form>
-          <section>
-            <label>식단명</label>
-            <input />
+          <section style={{marginBottom:'20px'}}>
+            <label style={{display:'block', marginBottom:'8px'}}>식단명</label>
+            <Input />
           </section>
-          <section>
-            <label>음식 목록</label>
-            <div>
+          <section style={{marginBottom:'20px'}}>
+            <label style={{display:'block', marginBottom:'8px'}}>음식 목록</label>
+            <div style={{marginBottom:'10px'}}>
               {foodList}
             </div>
-            <button onClick={addFood}>+</button>
+            <Button type="primary" shape="circle" ghost onClick={addFood}>+</Button>
           </section>
-          <button onClick={saveDiet}>저장하기</button>
+          <Button type="primary" onClick={saveDiet}>저장하기</Button>
         </form>
       </div>
     </div>
