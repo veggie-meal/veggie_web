@@ -15,21 +15,21 @@ function Today({ id, token, name}) {
   if (month[0] === '0') month = month[1];
   if (date[0] === '0') date = date[1];
 
-  const [isNewDietVisible, setIsNewDietVisible] = useState(false);
   const [foodList, setFoodList] = useState([]);
   const [dietList, setDietList] = useState([]);
-  const [isFoodListNew, setIsFoodListNew] = useState(false);
-  const [isDietListNew, setIsDietListNew] = useState(false);
+  const [isFoodListNew, setIsFoodListNew] = useState(null);
+  const [modal, setModal] = useState(null);
 
   useEffect(() => {
     // 음식
     axios.post(config.API_ADDR + 'diet/dietList', {
-      userId: 1,
+      userId: id,
       wrt_time: match.params.dayId,
     })
     .then(function(res) {
       if (Boolean(res.data.data.length)) {
         setFoodList(res.data.data[0].food.split(','));
+        setIsFoodListNew(false);
       } else {
         setIsFoodListNew(true);
       }
@@ -40,28 +40,27 @@ function Today({ id, token, name}) {
 
     // 식단
     axios.post(config.API_ADDR + 'diet/dietLog', {
-      userId: 1,
+      userId: id,
       wrt_time: match.params.dayId,
     })
     .then(function(res) {
-      if (Boolean(res.data.data.length)) {
-        setDietList(res.data.data);
-      } else {
-        setIsDietListNew(true);
-      }
+      setDietList(res.data.data);
     })
     .catch(function(err) {
       console.log(err);
     });
   }, []);
 
-  function showNewDiet() {
-    setIsNewDietVisible(true);
+  function openNewDiet() {
+    setModal(<NewDiet closeNewDiet={closeNewDiet} id={id} isDietNew={true} date={match.params.dayId} />);
+  }
+
+  function openExistingDiet(e) {
+    setModal(<NewDiet closeNewDiet={closeNewDiet} id={id} isDietNew={false} date={match.params.dayId} contentValue={e.target.innerText} foodListValue={e.target.value} logSeq={e.target.id} />)
   }
 
   function saveFood() {
     const foodURL = isFoodListNew ? 'diet/addDiet' : 'diet/modifyDiet';
-    // const dietURL = isFoodListNew ? 'diet/addDietLog' : 'diet/modifyDietLog';
 
     axios.post(config.API_ADDR + foodURL, {
       userId: id,
@@ -75,32 +74,15 @@ function Today({ id, token, name}) {
     .catch(function(err) {
       console.log(err);
     });
-
-    // axios.post(config.API_ADDR + dietURL, {
-    //   userId: id,
-    //   content: '',
-    //   food_list: null, // 이거 백엔드에서 계산하는 거 아닌가..?
-    //   wrt_time: null, // 이것도 백엔드에서 하는 거 아닌가 원래...?
-    // })
-    // .then(function(res) {
-    //   console.log(res);
-    //   // 뭔가 알림을 띄우고 메인으로 넘어가야 함..?
-    // })
-    // .catch(function(err) {
-    //   console.log(err);
-    // });
   }
 
   function closeNewDiet() {
-    setIsNewDietVisible(false);
+    setModal(null);
   }
 
-  let modal;
-  if (isNewDietVisible) modal = <NewDiet closeNewDiet={closeNewDiet} />;
-
-  let diets;
-  if (!dietList) {
-    dietList.forEach(diet => diets.push(<div>식단들</div>));
+  let diets = [];
+  if (dietList.length) {
+    dietList.forEach(diet => diets.push(<button onClick={openExistingDiet} id={diet.log_seq} value={diet.food_list} key={diet.log_seq}>{diet.content}</button>));
   } else {
     diets = (
       <div style={{marginBottom:'20px'}}>
@@ -139,7 +121,7 @@ function Today({ id, token, name}) {
         <img src="/image/divider_dashed.svg" style={{margin:'28px 0px',width:'100%'}} />
         <Title level={4}>{month}월 {date}일의 식단</Title>
         {diets}
-        <Button type="primary" shape="circle" onClick={showNewDiet}>+</Button>
+        <Button type="primary" shape="circle" onClick={openNewDiet}>+</Button>
       </section>
       {modal}
     </>
