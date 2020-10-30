@@ -26,18 +26,18 @@ function NewDiet({ closeNewDiet }) {
 
   return (
     <div id="background">
-      <div class="site-layout-content" style={{textAlign: 'center', width: '80%'}}>
+      <div className="site-layout-content" style={{textAlign: 'center', width: '80%'}}>
         <div style={{width:'100%', textAlign:'right'}}>
           <Button type="text" onClick={closeSelf}>x</Button>
         </div>
         <Title level={5} style={{color:'#68B0AB'}}>식단 등록</Title>
         <form>
           <section style={{marginBottom:'20px'}}>
-            <label>식단명</label>
+            <label style={{display:'block', marginBottom:'8px'}}>식단명</label>
             <Input />
           </section>
           <section style={{marginBottom:'20px'}}>
-            <label>음식 목록</label>
+            <label style={{display:'block', marginBottom:'8px'}}>음식 목록</label>
             <div style={{marginBottom:'10px'}}>
               {foodList}
             </div>
