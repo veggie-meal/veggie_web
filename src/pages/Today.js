@@ -9,7 +9,7 @@ import * as config from '../config';
 
 const { Title, Text } = Typography;
 
-function Today() {
+function Today({ id, token, name}) {
   const match = useRouteMatch('/today/:dayId');
   let [, month, date] = match.params.dayId.split('-');
   if (month[0] === '0') month = month[1];
@@ -18,6 +18,8 @@ function Today() {
   const [isNewDietVisible, setIsNewDietVisible] = useState(false);
   const [foodList, setFoodList] = useState([]);
   const [dietList, setDietList] = useState([]);
+  const [isFoodListNew, setIsFoodListNew] = useState(false);
+  const [isDietListNew, setIsDietListNew] = useState(false);
 
   useEffect(() => {
     // 음식
@@ -26,7 +28,11 @@ function Today() {
       wrt_time: match.params.dayId,
     })
     .then(function(res) {
-      setFoodList(res.data.data[0].food.split(','));
+      if (Boolean(res.data.data.length)) {
+        setFoodList(res.data.data[0].food.split(','));
+      } else {
+        setIsFoodListNew(true);
+      }
     })
     .catch(function(err) {
       console.log(err);
@@ -38,7 +44,11 @@ function Today() {
       wrt_time: match.params.dayId,
     })
     .then(function(res) {
-      setDietList(res.data.data);
+      if (Boolean(res.data.data.length)) {
+        setDietList(res.data.data);
+      } else {
+        setIsDietListNew(true);
+      }
     })
     .catch(function(err) {
       console.log(err);
@@ -49,18 +59,36 @@ function Today() {
     setIsNewDietVisible(true);
   }
 
-  function saveToday() {
-    axios.post(config.API_ADDR + 'diet/addDiet', {
-      userId: 1,
+  function saveFood() {
+    const foodURL = isFoodListNew ? 'diet/addDiet' : 'diet/modifyDiet';
+    // const dietURL = isFoodListNew ? 'diet/addDietLog' : 'diet/modifyDietLog';
+
+    axios.post(config.API_ADDR + foodURL, {
+      userId: id,
       food: foodList.join(','),
+      wrt_time: match.params.dayId,
     })
     .then(function(res) {
       console.log(res);
-      // setFoodList
+      // 뭔가 알림을 띄우고 메인으로 넘어가야 함..?
     })
     .catch(function(err) {
       console.log(err);
     });
+
+    // axios.post(config.API_ADDR + dietURL, {
+    //   userId: id,
+    //   content: '',
+    //   food_list: null, // 이거 백엔드에서 계산하는 거 아닌가..?
+    //   wrt_time: null, // 이것도 백엔드에서 하는 거 아닌가 원래...?
+    // })
+    // .then(function(res) {
+    //   console.log(res);
+    //   // 뭔가 알림을 띄우고 메인으로 넘어가야 함..?
+    // })
+    // .catch(function(err) {
+    //   console.log(err);
+    // });
   }
 
   function closeNewDiet() {
@@ -82,19 +110,32 @@ function Today() {
     );
   }
 
+  function handleChange(e) {
+    if (e.target.checked) {
+      setFoodList([...foodList, e.target.value]);
+    } else {
+      const index = foodList.indexOf(e.target.value);
+      if (index !== -1) {
+        const newFoodList = foodList.slice();
+        newFoodList.splice(index, 1);
+        setFoodList(newFoodList);
+      }
+    }
+  }
+
   return (
     <>
       <section className="site-layout-content" style={{textAlign:'center'}}>
         <Title level={4}>{month}월 {date}일의 비건 도전</Title>
         <div style={{display:'grid', gridTemplateRows:'repeat(2, 1fr)', gridTemplateColumns:'repeat(3, 1fr)', marginBottom: '30px'}}>
-          <EmojiButton food="VEGETABLE" />
-          <EmojiButton food="MILK" />
-          <EmojiButton food="EGG" />
-          <EmojiButton food="FISH" />
-          <EmojiButton food="CHICKEN" />
-          <EmojiButton food="MEAT" />
+          <EmojiButton food="VEGETABLE" handleChange={handleChange} />
+          <EmojiButton food="MILK" handleChange={handleChange} />
+          <EmojiButton food="EGG" handleChange={handleChange} />
+          <EmojiButton food="FISH" handleChange={handleChange} />
+          <EmojiButton food="CHICKEN" handleChange={handleChange} />
+          <EmojiButton food="MEAT" handleChange={handleChange} />
         </div>
-        <Button type="primary" onClick={saveToday}>저장하기</Button>
+        <Button type="primary" onClick={saveFood}>저장하기</Button>
         <img src="/image/divider_dashed.svg" style={{margin:'28px 0px',width:'100%'}} />
         <Title level={4}>{month}월 {date}일의 식단</Title>
         {diets}
