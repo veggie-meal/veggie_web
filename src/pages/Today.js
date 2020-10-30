@@ -51,7 +51,7 @@ function Today({ id, token, name}) {
     .catch(function(err) {
       console.log(err);
     });
-  }, []);
+  }, [modal]);
 
   function openNewDiet() {
     setModal(<NewDiet closeNewDiet={closeNewDiet} id={id} isDietNew={true} date={match.params.dayId} />);
