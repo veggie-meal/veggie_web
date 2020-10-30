@@ -5,33 +5,36 @@ import moment from 'moment';
 import axios from 'axios';
 
 import * as config from '../config';
-import * as colors from '../colors';
 
-const listData = {};
-listData['2020-10-05'] = 'VEGAN';
-listData['2020-10-06'] = 'POLLO';
-listData['2020-10-07'] = 'FLEXITARIAN';
-listData['2020-10-08'] = 'VEGAN';
-listData['2020-10-15'] = 'LACTO';
-listData['2020-10-25'] = 'FLEXITARIAN';
-listData['2020-10-09'] = 'PESCO';
+let dayMapData = {};
 
 function dateFullCellRender(dateValue) {
-  let color = '#faf3dd';
-  switch (listData[dateValue.format('YYYY-MM-DD')]) {
+  let color;
+  switch (dayMapData[dateValue.format('YYYY-MM-DD')]) {
     case 'VEGAN':
-      color = colors.GREEN;
+      color = '#68B0AB';
       break;
     case 'LACTO':
-      color = colors.LIGHT_GREEN_1;
+      color = '#8FC0A9';
       break;
     case 'OVO':
+      color = '#8FC0A9';
+      break;
     case 'LACTO-OVO':
+      color = '#C8D5B9';
+      break;
     case 'PESCO':
+      color = '#FAF3DD';
+      break;
     case 'POLLO':
+      color = '#F1E2CC';
+      break;
     case 'FLEXITARIAN':
+      color = '#DEBA90';
+      break;
     default:
-        break;
+      color = '#DE9166';
+      break;
   }
     return (
       <Avatar style={{ textDecorationStyle: 'bold', color: 'black', backgroundColor: color, verticalAlign: 'middle' }} size="medium">
@@ -40,18 +43,31 @@ function dateFullCellRender(dateValue) {
     );
 }
 
-function MainCalendar(props) {
+const dayNums = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+function MainCalendar({ id, history }) {
+  const dayNum = new Date().getMonth();
   const [value, setValue] = useState(moment());
+  const [dayMap, setDayMap] = useState({});
 
   useEffect(() => {
     const url = config.API_ADDR + 'calander/list';
     axios.post(url, {
       startDate: 1,
-      endDate: 31,
-      userId: 1,
+      endDate: dayNums[dayNum],
+      userId: id,
     })
     .then(function(res) {
-      console.log(res.data.calanderList)
+      console.log(res.data.calanderList);
+      let newDayMap;
+      res.data.calanderList.forEach(function(day) {
+        newDayMap[day.wrt_time] = {
+          food: day.food,
+          vegan_type: day.vegan_type,
+        };
+      });
+      setDayMap(newDayMap);
+      dayMapData = dayMap;
     })
     .catch(function(err) {
       console.log(err);
@@ -60,7 +76,7 @@ function MainCalendar(props) {
 
   function onSelect(selected) {
     if (value.format('YYYY-MM') === selected.format('YYYY-MM')) {
-      props.history.push(`/today/${selected.format('YYYY-MM-DD')}`) // 이 부분 바꿔야 함
+      history.push(`/today/${selected.format('YYYY-MM-DD')}`) // 이 부분 바꿔야 함
     }
     setValue(value);
   };
