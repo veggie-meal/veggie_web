@@ -13,9 +13,11 @@ function NewDiet({ closeNewDiet, isDietNew, id, date, contentValue, foodListValu
 
   useEffect(() => {
     if (!isDietNew) {
+      const tempFoodList = [];
       for (const [key, value] of Object.entries(JSON.parse(foodListValue))) {
-        setFoodList([...foodList, <Input className="diet-food" style={{marginBottom:'6px'}} defaultValue={value} key={key} />])
+        tempFoodList.push(<Input className="diet-food" style={{marginBottom:'6px'}} defaultValue={value} key={key} />);
       }
+      setFoodList(tempFoodList);
     }
   }, []);
 
