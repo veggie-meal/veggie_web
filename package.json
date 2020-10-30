@@ -10,6 +10,7 @@
     "antd": "^4.7.3",
     "axios": "^0.21.0",
     "craco-less": "^1.17.0",
+    "next": "^10.0.0",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
     "react-kakao-login": "^1.2.3",
