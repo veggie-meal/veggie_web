@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import axios from 'axios';
-import { Button, Typography, Divider } from 'antd';
+import { Button, Typography } from 'antd';
 
 import EmojiButton from '../components/EmojiButton';
 import NewDiet from '../components/NewDiet';
@@ -95,7 +95,7 @@ function Today() {
           <EmojiButton food="MEAT" />
         </div>
         <Button type="primary" onClick={saveToday}>저장하기</Button>
-        <Divider dashed />
+        <img src="/image/divider_dashed.svg" style={{margin:'28px 0px',width:'100%'}} />
         <Title level={4}>{month}월 {date}일의 식단</Title>
         {diets}
         <Button type="primary" shape="circle" onClick={showNewDiet}>+</Button>
