@@ -19,6 +19,7 @@ function Today({ id, token, name}) {
   const [dietList, setDietList] = useState([]);
   const [isFoodListNew, setIsFoodListNew] = useState(null);
   const [modal, setModal] = useState(null);
+  const [histSeq, setHistSeq] = useState(null);
 
   useEffect(() => {
     // 음식
@@ -30,6 +31,7 @@ function Today({ id, token, name}) {
       if (Boolean(res.data.data.length)) {
         setFoodList(res.data.data[0].food.split(','));
         setIsFoodListNew(false);
+        setHistSeq(res.data.data[0].hist_seq);
       } else {
         setIsFoodListNew(true);
       }
@@ -66,6 +68,7 @@ function Today({ id, token, name}) {
       userId: id,
       food: foodList.join(','),
       wrt_time: match.params.dayId,
+      hist_seq: histSeq,
     })
     .then(function(res) {
       console.log(res);
