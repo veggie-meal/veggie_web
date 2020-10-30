@@ -50,6 +50,9 @@ class Login extends React.Component {
       });
     }
 
+    if(response.data.result && response.data.code !== '-1'){
+      authenticateUser(response.data.code); // 임시
+    }
     else {
       alert("에러가 발생했습니다.");
     }
