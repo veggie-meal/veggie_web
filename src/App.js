@@ -20,7 +20,6 @@ function App() {
   const [isNewUser, setIsNewUser] = useState(false);
 
   function authenticateUser(id, token, name, code) {
-    console.log(id, token, name, code);
     if (code === 2) {
       setUserId(id);
       setUserToken(token);
