@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import './NewDiet.css';
-import { Button, Input } from 'antd';
+import { Button, Input, Typography } from 'antd';
+
+const { Title } = Typography;
 
 function NewDiet({ closeNewDiet }) {
-  const [foodList, setFoodList] = useState([<Input />]);
+  const [foodList, setFoodList] = useState([<Input style={{marginBottom:'6px'}} />]);
 
   function closeSelf() {
     closeNewDiet();
@@ -14,7 +16,7 @@ function NewDiet({ closeNewDiet }) {
     e.preventDefault();
     console.log('addFood');
     // 음식 목록을 먼저 받아 오고
-    setFoodList([...foodList, <Input />]);
+    setFoodList([...foodList, <Input style={{marginBottom:'6px'}} />]);
   }
 
   function saveDiet(e) {
@@ -24,20 +26,22 @@ function NewDiet({ closeNewDiet }) {
 
   return (
     <div id="background">
-      <div class="site-layout-content">
-        <Button type="text" onClick={closeSelf}>x</Button>
-        <div>식단 등록</div>
+      <div class="site-layout-content" style={{textAlign: 'center', width: '80%'}}>
+        <div style={{width:'100%', textAlign:'right'}}>
+          <Button type="text" onClick={closeSelf}>x</Button>
+        </div>
+        <Title level={5} style={{color:'#68B0AB'}}>식단 등록</Title>
         <form>
-          <section>
+          <section style={{marginBottom:'20px'}}>
             <label>식단명</label>
             <Input />
           </section>
-          <section>
+          <section style={{marginBottom:'20px'}}>
             <label>음식 목록</label>
-            <div>
+            <div style={{marginBottom:'10px'}}>
               {foodList}
             </div>
-            <Button type="primary" shape="circle" onClick={addFood}>+</Button>
+            <Button type="primary" shape="circle" ghost onClick={addFood}>+</Button>
           </section>
           <Button type="primary" onClick={saveDiet}>저장하기</Button>
         </form>
