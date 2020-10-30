@@ -1,27 +1,65 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './NewDiet.css';
 import { Button, Input, Typography } from 'antd';
+import axios from 'axios';
+
+import * as config from '../config';
 
 const { Title } = Typography;
 
-function NewDiet({ closeNewDiet }) {
-  const [foodList, setFoodList] = useState([<Input style={{marginBottom:'6px'}} />]);
+function NewDiet({ closeNewDiet, isDietNew, id, date, contentValue, foodListValue, logSeq }) {
+  const [foodList, setFoodList] = useState([]);
+  const [content, setContent] = useState(contentValue);
+
+  useEffect(() => {
+    if (!isDietNew) {
+      for (const [key, value] of Object.entries(JSON.parse(foodListValue))) {
+        setFoodList([...foodList, <Input className="diet-food" style={{marginBottom:'6px'}} defaultValue={value} key={key} />])
+      }
+    }
+  }, []);
 
   function closeSelf() {
     closeNewDiet();
   }
 
   function addFood(e) {
-    // 먼저 get으로 받아 와야 할 것 같다
     e.preventDefault();
-    console.log('addFood');
-    // 음식 목록을 먼저 받아 오고
-    setFoodList([...foodList, <Input style={{marginBottom:'6px'}} />]);
+    setFoodList([...foodList, <Input className="diet-food" style={{marginBottom:'6px'}} />]);
   }
 
   function saveDiet(e) {
     e.preventDefault();
-    console.log('addDiet');
+    const dietURL = isDietNew ? 'diet/addDietLog' : 'diet/modifyDietLog';
+
+    console.log(getFoodJSON())
+    axios.post(config.API_ADDR + dietURL, {
+      userId: id,
+      content,
+      food_list: getFoodJSON(),
+      wrt_time: date,
+      log_seq: logSeq,
+    })
+    .then(function(res) {
+      console.log(res);
+      // 뭔가 알림을 띄우고 메인으로 넘어가야 함..?
+      closeNewDiet();
+    })
+    .catch(function(err) {
+      console.log(err);
+    });
+  }
+
+  function updateContent(e) {
+    setContent(e.target.value);
+  }
+
+  function getFoodJSON() {
+    let foodObject = {};
+    document.querySelectorAll('.diet-food').forEach((target, i) => {
+      foodObject[i] = target.value;
+    });
+    return JSON.stringify(foodObject);
   }
 
   return (
@@ -34,7 +72,7 @@ function NewDiet({ closeNewDiet }) {
         <form>
           <section style={{marginBottom:'20px'}}>
             <label style={{display:'block', marginBottom:'8px'}}>식단명</label>
-            <Input />
+            <Input onChange={updateContent} defaultValue={contentValue} />
           </section>
           <section style={{marginBottom:'20px'}}>
             <label style={{display:'block', marginBottom:'8px'}}>음식 목록</label>
