@@ -60,16 +60,16 @@ function App() {
               <Login authenticateUser={authenticateUser} />
             </Route>
             <Route exact path="/">
-              {checkUser() ? <Main /> : <Redirect to="/login" />}
+              {checkUser() ? <Main id={userId} token={userToken} name={userName} /> : <Redirect to="/login" />}
             </Route>
             <Route exact path="/today/:dayId">
-              {checkUser() ? <Today /> : <Redirect to="/login" />}
+              {checkUser() ? <Today id={userId} token={userToken} name={userName} /> : <Redirect to="/login" />}
             </Route>
             <Route exact path="/badge" component={Badge}>
-              {checkUser() ? <Badge /> : <Redirect to="/login" />}
+              {checkUser() ? <Badge id={userId} token={userToken} name={userName} /> : <Redirect to="/login" />}
             </Route>
             <Route exact path="/setting" component={Setting}>
-              {checkUser() ? <Setting /> : <Redirect to="/login" />}
+              {checkUser() ? <Setting id={userId} token={userToken} name={userName} /> : <Redirect to="/login" />}
             </Route>
             <NotFound/>
           </Switch>
