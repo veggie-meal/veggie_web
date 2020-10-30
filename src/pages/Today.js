@@ -82,7 +82,7 @@ function Today({ id, token, name}) {
 
   let diets = [];
   if (dietList.length) {
-    dietList.forEach(diet => diets.push(<button onClick={openExistingDiet} id={diet.log_seq} value={diet.food_list} key={diet.log_seq}>{diet.content}</button>));
+    dietList.forEach(diet => diets.push(<button onClick={openExistingDiet} id={diet.log_seq} value={diet.food_list} key={diet.log_seq} className="ant-btn ant-btn-primary ant-btn-background-ghost" style={{margin: '4px'}}>{diet.content}</button>));
   } else {
     diets = (
       <div style={{marginBottom:'20px'}}>
@@ -120,7 +120,9 @@ function Today({ id, token, name}) {
         <Button type="primary" onClick={saveFood}>저장하기</Button>
         <img src="/image/divider_dashed.svg" style={{margin:'28px 0px',width:'100%'}} />
         <Title level={4}>{month}월 {date}일의 식단</Title>
-        {diets}
+        <div style={{marginBottom: '16px'}}>
+          {diets}
+        </div>
         <Button type="primary" shape="circle" onClick={openNewDiet}>+</Button>
       </section>
       {modal}
