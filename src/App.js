@@ -14,45 +14,68 @@ import SignUp from './pages/SignUp';
 const { Content } = Layout;
 
 function App() {
-  const [user, setUser] = useState(localStorage.getItem('veggieUser')); // 초기 값 로컬스토리지에서 받아오기. 없으면 null
-  let navBar;
+  const [userId, setUserId] = useState(localStorage.getItem('veggieUserId'));
+  const [userToken, setUserToken] = useState(localStorage.getItem('veggieUserToken'));
+  const [userName, setUserName] = useState(localStorage.getItem('veggieUserName'));
+  const [isNewUser, setIsNewUser] = useState(false);
 
-  function authenticateUser(code) {
-    setUser(code); // 임시
-    localStorage.setItem('veggieUser', code);
+  function authenticateUser(id, token, name, code) {
+    console.log(id, token, name, code);
+    if (code === 2) {
+      setUserId(id);
+      setUserToken(token);
+      setUserName(name);
+      setIsNewUser(true);
+    } else {
+      setUserId(id);
+      setUserToken(token);
+      setUserName(name);
+      localStorage.getItem('veggieUserId', id);
+      localStorage.getItem('veggieUserToken', token);
+      localStorage.getItem('veggieUserName', name);
+    }
   }
 
-  if (user) {
-    navBar = <NavBar />;
+  function checkUser() {
+    if (userId && userToken && userName) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  function signUp() {
+    setIsNewUser(false);
   }
 
   return (
     <Layout style={{height:"100%"}}>
       <Router>
-        <Content style={{padding:'40px 20px', marginBottom:'46px'}}>
+        <Content style={{padding:'40px 20px'}}>
           <Switch>
+            <Route exact path="/signup">
+              <SignUp id={userId} token={userToken} name={userName} signUp={signUp} />
+            </Route>
+            {isNewUser ? <Redirect to="signup" /> : null}
             <Route exact path="/login">
               <Login authenticateUser={authenticateUser} />
             </Route>
-            <Route exact path="/SignUp">
-              <SignUp/>
-            </Route>
             <Route exact path="/">
-              {user ? <Main /> : <Redirect to="/login" />}
+              {checkUser() ? <Main /> : <Redirect to="/login" />}
             </Route>
             <Route exact path="/today/:dayId">
-              {user ? <Today /> : <Redirect to="/login" />}
+              {checkUser() ? <Today /> : <Redirect to="/login" />}
             </Route>
             <Route exact path="/badge" component={Badge}>
-              {user ? <Badge /> : <Redirect to="/login" />}
+              {checkUser() ? <Badge /> : <Redirect to="/login" />}
             </Route>
             <Route exact path="/setting" component={Setting}>
-              {user ? <Setting /> : <Redirect to="/login" />}
+              {checkUser() ? <Setting /> : <Redirect to="/login" />}
             </Route>
             <NotFound/>
           </Switch>
         </Content>
-        {navBar}
+        {checkUser() && !isNewUser ? <NavBar /> : null}
       </Router>
     </Layout>
   );

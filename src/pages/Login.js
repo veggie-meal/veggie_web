@@ -3,22 +3,9 @@ import axios from 'axios';
 import styled from 'styled-components';
 import KaKaoLogin from 'react-kakao-login';
 import { Image } from 'antd';
-import { withRouter} from "react-router-dom";
+import { withRouter } from 'react-router-dom';
 
 import * as config from '../config';
-
-function sendLogin({ authenticateUser }) {
-  // function kakoLoginHandler(result) {
-  //   const token = result.response.access_token;
-  //   const id = result.profile.id;
-  //   login(token, id);
-  // }
-
-  // async function login(token, id) {
-    
-  // }
-}
-
 
 class Login extends React.Component {
   kakoLoginHandler = (result) => {
@@ -28,7 +15,7 @@ class Login extends React.Component {
     this.loginCheck(token, id, name);
   }
 
-  loginCheck = async(token, id, name) => {
+  loginCheck = async (token, id, name) => {
     const url = config.API_ADDR + 'user/login';
     const data = {
       userAT: token,
@@ -36,25 +23,12 @@ class Login extends React.Component {
     };
 
     const response = await axios.post(url, data);
-    console.log(data, response.data)
-    if(response.data.result && response.data.code === 1){
-      //authenticateUser();
-      this.props.history.push("/");
-    }
- 
-    else if(response.data.result && response.data.code === 2){
-      console.log("add User");
-      this.props.history.push({
-        pathname:"/signUp"
-        , state: { token: token, id: id, name: name }
-      });
-    }
-
-    if(response.data.result && response.data.code !== '-1'){
-      authenticateUser(response.data.code); // 임시
-    }
-    else {
-      alert("에러가 발생했습니다.");
+    if (response.data.result && response.data.code === 1) {
+      this.props.authenticateUser(id, token, name, response.data.code);
+    } else if (response.data.result && response.data.code === 2) {
+      this.props.authenticateUser(id, token, name, response.data.code);
+    } else {
+      alert('에러가 발생했습니다.');
     }
   }
 
@@ -77,8 +51,6 @@ class Login extends React.Component {
       );
   }
 }
-
-
 
 const KaKaoBtn = styled(KaKaoLogin)`
   background: url("/image/kakao_login_large_wide.png");
