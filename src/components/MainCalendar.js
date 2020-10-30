@@ -44,8 +44,9 @@ function dateFullCellRender(dateValue) {
 }
 
 const dayNums = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+const veganTypes = ['FLEXITARIAN', 'POLLO', 'PESCO', 'LACTO-OVO', 'OVO', 'LACTO', 'VEGAN'];
 
-function MainCalendar({ id, history }) {
+function MainCalendar({ id, veganType, history, sendPercentage }) {
   const dayNum = new Date().getMonth();
   const [value, setValue] = useState(moment());
   const [dayMap, setDayMap] = useState({});
@@ -68,6 +69,14 @@ function MainCalendar({ id, history }) {
       });
       setDayMap(newDayMap);
       dayMapData = dayMap;
+
+      let count;
+      dayMap.forEach((key, value) => {
+        if (veganTypes.indexOf(value.vegan_type) >= veganTypes.indexOf(veganType)) {
+          count++; // 아직 락토랑 오보 문제는 해결 못 함,,,
+        }
+      });
+      sendPercentage(count / dayNums[dayNum] * 100);
     })
     .catch(function(err) {
       console.log(err);
