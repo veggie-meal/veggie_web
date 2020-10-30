@@ -5,7 +5,7 @@ import MainCalendar from '../components/MainCalendar';
 import Goal from '../components/Goal';
 import * as config from '../config';
 
-function Main({ id, token, name }) {
+function Main({ id, token, name, goal }) {
   const [veganType, setVeganType] = useState('');
   const [achievementPercentage, setachievementPercentage] = useState(0);
 

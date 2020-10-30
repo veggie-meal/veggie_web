@@ -4,8 +4,7 @@ import { Select, Button, Card, Collapse, Form } from 'antd';
 const { Meta } = Card;
 const { Option } = Select;
 
-function Setting({ id, token, name }) {
-  let goal = "플렉시테리언"; //localstorage
+function Setting({ id, token, name, goal }) {
   const [form] = Form.useForm();
 
   function handleSubmit(e) {

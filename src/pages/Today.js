@@ -9,7 +9,7 @@ import * as config from '../config';
 
 const { Title, Text } = Typography;
 
-function Today({ id, token, name}) {
+function Today({ id, token, name, goal }) {
   const match = useRouteMatch('/today/:dayId');
   let [, month, date] = match.params.dayId.split('-');
   if (month[0] === '0') month = month[1];
