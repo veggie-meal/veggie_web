@@ -71,11 +71,11 @@ function MainCalendar({ id, veganType, history, sendPercentage }) {
       dayMapData = dayMap;
 
       let count;
-      dayMap.forEach((key, value) => {
+      for (const [key, value] of Object.entries(dayMap)) {
         if (veganTypes.indexOf(value.vegan_type) >= veganTypes.indexOf(veganType)) {
           count++; // 아직 락토랑 오보 문제는 해결 못 함,,,
         }
-      });
+      }
       sendPercentage(count / dayNums[dayNum] * 100);
     })
     .catch(function(err) {
