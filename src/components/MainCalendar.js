@@ -11,7 +11,7 @@ let dayMapData = {};
 function dateFullCellRender(dateValue) {
   let color;
   if (dayMapData[dateValue.format('YYYY-MM-DD')] && dayMapData[dateValue.format('YYYY-MM-DD')].food) {
-    switch (dayMapData[dateValue.format('YYYY-MM-DD')].food) {
+    switch (dayMapData[dateValue.format('YYYY-MM-DD')].vegan_type) {
       case 'VEGAN':
         color = '#68B0AB';
         break;
