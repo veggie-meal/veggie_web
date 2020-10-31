@@ -10,37 +10,40 @@ let dayMapData = {};
 
 function dateFullCellRender(dateValue) {
   let color;
-  switch (dayMapData[dateValue.format('YYYY-MM-DD')]) {
-    case 'VEGAN':
-      color = '#68B0AB';
-      break;
-    case 'LACTO':
-      color = '#8FC0A9';
-      break;
-    case 'OVO':
-      color = '#8FC0A9';
-      break;
-    case 'LACTO-OVO':
-      color = '#C8D5B9';
-      break;
-    case 'PESCO':
-      color = '#FAF3DD';
-      break;
-    case 'POLLO':
-      color = '#F1E2CC';
-      break;
-    case 'FLEXITARIAN':
-      color = '#E7C69F';
-      break;
-    default:
-      color = '#E2A684';
-      break;
+  if (dayMapData[dateValue.format('YYYY-MM-DD')] && dayMapData[dateValue.format('YYYY-MM-DD')].food) {
+    switch (dayMapData[dateValue.format('YYYY-MM-DD')].food) {
+      case 'VEGAN':
+        color = '#68B0AB';
+        break;
+      case 'LACTO':
+        color = '#8FC0A9';
+        break;
+      case 'OVO':
+        color = '#8FC0A9';
+        break;
+      case 'LACTO-OVO':
+        color = '#C8D5B9';
+        break;
+      case 'PESCO':
+        color = '#FAF3DD';
+        break;
+      case 'POLLO':
+        color = '#F1E2CC';
+        break;
+      case 'FLEXITARIAN':
+        color = '#E7C69F';
+        break;
+      default:
+        color = '#E2A684';
+        break;
+    }
   }
-    return (
-      <Avatar style={{ textDecorationStyle: 'bold', color: 'black', backgroundColor: color, verticalAlign: 'middle' }} size="medium">
-        {dateValue.date()}
-      </Avatar>
-    );
+
+  return (
+    <Avatar style={{ textDecorationStyle: 'bold', color: 'black', backgroundColor: color, verticalAlign: 'middle' }} size="medium">
+      {dateValue.date()}
+    </Avatar>
+  );
 }
 
 const dayNums = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
@@ -52,30 +55,39 @@ function MainCalendar({ id, veganType, history, sendPercentage }) {
   const [dayMap, setDayMap] = useState({});
 
   useEffect(() => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth() + 1;
+
     const url = config.API_ADDR + 'calander/list';
     axios.post(url, {
-      startDate: 1,
-      endDate: dayNums[dayNum],
+      // 일단 달력 전치가 아니라 월별로
+      startDate: `${year}-${month}-01`,
+      endDate: `${year}-${month}-${dayNums[month-1]}`,
       userId: id,
     })
     .then(function(res) {
       console.log(res.data.calanderList);
-      let newDayMap;
+      let newDayMap = {};
       res.data.calanderList.forEach(function(day) {
-        newDayMap[day.wrt_time] = {
+        const newTime = day.wrt_time.slice(0, 10);
+        newDayMap[newTime] = {
           food: day.food,
           vegan_type: day.vegan_type,
         };
       });
-      setDayMap(newDayMap);
-      dayMapData = dayMap;
+      setDayMap({...newDayMap});
+      dayMapData = {...newDayMap};
 
-      let count;
-      for (const [key, value] of Object.entries(dayMap)) {
+      let count = 0;
+      // console.log(44444, dayMapData)
+      for (const [key, value] of Object.entries(dayMapData)) {
+        // console.log(key, value)
         if (veganTypes.indexOf(value.vegan_type) >= veganTypes.indexOf(veganType)) {
           count++; // 아직 락토랑 오보 문제는 해결 못 함,,,
         }
       }
+      // setDayMap(newDayMap);
       sendPercentage(count / dayNums[dayNum] * 100);
     })
     .catch(function(err) {
